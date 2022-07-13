@@ -2,11 +2,24 @@ slots = [["1", "2", "3", "4", "5", "6", "7", "8", "9"], ["1", "2", "3", "4", "5"
 
 x=1
 y=1
+d=1
 
 while x<=24:
     print("Hello! You are Parent", x, "\n")
     p_id = x+10
-    day = int(input("What day would you like your appointment on? Please enter a number from 1-3.\n"))
+
+    while d == 1:
+        day = int(input("What day would you like your appointment on? Please enter a number from 1-3.\n"))
+
+        if day == 1:
+            d = 0
+        elif day == 2:
+            d = 0
+        elif day == 3:
+            d = 0
+        else:
+            print("Please enter 1, 2 or 3.\n")
+    d = 1
     day-=1
     while y == 1:
         print("\nPlease select a time from the following list:")
@@ -34,6 +47,6 @@ while x<=24:
         else:
             print("Please enter a valid time.")
             y = 1
-    print("bye")
+
     y=1
     x+=1
