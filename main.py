@@ -1,10 +1,10 @@
 slots = [["1", "2", "3", "4", "5", "6", "7", "8", "9"], ["1", "2", "3", "4", "5", "6", "7", "8", "9"], ["1", "2", "3", "4", "5", "6", "7", "8", "9"]]
 
-x=1
-y=1
-d=1
+x = 1
+y = 1
+d = 1
 
-while x<=24:
+while x <= 24:
     print("Hello! You are Parent", x, "\n")
     p_id = x+10
 
@@ -20,7 +20,7 @@ while x<=24:
         else:
             print("Please enter 1, 2 or 3.\n")
     d = 1
-    day-=1
+    day -= 1
     while y == 1:
         print("\nPlease select a time from the following list:")
         print("17:00, 17:20, 17:40, 18:00, 18:20, 18:40, 19:00, 19:20, 19:40")
@@ -50,5 +50,5 @@ while x<=24:
     preference1 = [day][time]
     print(slots[day][time])
 
-    y=1
-    x+=1
+    y = 1
+    x += 1
