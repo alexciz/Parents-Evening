@@ -4,17 +4,17 @@ x=1
 y=1
 
 while x<=24:
-    print("Hello! You are Parent", x)
+    print("Hello! You are Parent", x, "\n")
     p_id = x+10
-    day = int(input("What day would you like your appointment on? Please enter a number from 1-3. "))
+    day = int(input("What day would you like your appointment on? Please enter a number from 1-3.\n"))
     day-=1
     while y == 1:
-        print("Please select a time from the following list:")
+        print("\nPlease select a time from the following list:")
         print("17:00, 17:20, 17:40, 18:00, 18:20, 18:40, 19:00, 19:20, 19:40")
         time = str(input())
-
+        y = 0
         if time == "17:00":
-           time = 0
+            time = 0
         elif time == "17:20":
             time = 1
         elif time == "17:40":
@@ -26,5 +26,14 @@ while x<=24:
         elif time == "18:40":
             time = 5
         elif time == "19:00":
-            time =6
+            time = 6
+        elif time == "19:20":
+            time = 7
+        elif time == "19:40":
+            time = 8
+        else:
+            print("Please enter a valid time.")
+            y = 1
+    print("bye")
+    y=1
     x+=1
