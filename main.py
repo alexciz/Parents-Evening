@@ -47,6 +47,8 @@ while x<=24:
         else:
             print("Please enter a valid time.")
             y = 1
+    preference1 = [day][time]
+    print(slots[day][time])
 
     y=1
     x+=1
