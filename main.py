@@ -1,7 +1,10 @@
 import sys
 
-def clear()
-    sys.stdout
+def clear():
+    # \033[H homes the cursor
+    # \033[2J Clears the screen and sets the cursor back to top left
+    sys.stdout.write("\033[H\033[2J\033[H")
+
 
 slots = [["1", "2", "3", "4", "5", "6", "7", "8", "9"], ["1", "2", "3", "4", "5", "6", "7", "8", "9"], ["1", "2", "3", "4", "5", "6", "7", "8", "9"]]
 
@@ -10,7 +13,8 @@ y = 1
 d = 1
 
 while x <= 24:
-    sys.stdout.write("\033[H\033[2J\033[HHello! You are Parent " + str(x) +  "\n")
+    clear()
+    print("Hello! You are Parent " + str(x) +  "\n")
     p_id = x+10
 
     while d == 1:
