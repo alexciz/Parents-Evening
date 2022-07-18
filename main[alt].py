@@ -92,4 +92,4 @@ done = False
 
 print(bordered("Hello!"))
 hello = True
-time.sleep(10)
+time.sleep(1)
