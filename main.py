@@ -1,3 +1,8 @@
+import sys
+
+def clear()
+    sys.stdout
+
 slots = [["1", "2", "3", "4", "5", "6", "7", "8", "9"], ["1", "2", "3", "4", "5", "6", "7", "8", "9"], ["1", "2", "3", "4", "5", "6", "7", "8", "9"]]
 
 x = 1
@@ -5,7 +10,7 @@ y = 1
 d = 1
 
 while x <= 24:
-    print("Hello! You are Parent", x, "\n")
+    sys.stdout.write("\033[H\033[2J\033[HHello! You are Parent " + str(x) +  "\n")
     p_id = x+10
 
     while d == 1:
@@ -47,8 +52,8 @@ while x <= 24:
         else:
             print("Please enter a valid time.")
             y = 1
-    preference1 = [day][time]
-    print(slots[day][time])
+        preference1d = day
+        preference1t = time
 
     y = 1
     x += 1
