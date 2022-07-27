@@ -2,11 +2,6 @@ from genericpath import exists
 import sys
 
 
-
-
-
-
-
 def clear():
     # \033[H homes the cursor
     # \033[2J Clears the screen and sets the cursor back to top left
