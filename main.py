@@ -1,5 +1,9 @@
 from genericpath import exists
 import sys
+import msvcrt
+import time
+
+slots = [["1", "2", "3", "4", "5", "6", "7", "8", "9"], ["1", "2", "3", "4", "5", "6", "7", "8", "9"], ["1", "2", "3", "4", "5", "6", "7", "8", "9"]]
 
 
 def clear():
@@ -7,6 +11,55 @@ def clear():
     # \033[2J Clears the screen and sets the cursor back to top left
     sys.stdout.write("\033[H\033[2J\033[H")
 
+def hidden_input():
+    global passwor
+    passwor = ''
+    while True:
+        x = msvcrt.getch().decode("utf-8")
+        if x == '\r' or x == '\n':
+            break
+        print('*', end='', flush=True)
+        passwor +=x
+    return passwor
+
+def user_selection():
+    global t_password
+    global user
+    t_password = "T_auth"
+    user = "p"
+    us_loop = 1
+    p_attempts = 0
+    
+    while us_loop == 1:
+        clear()
+        u_input = input("Are you a parent?\n")
+        if u_input == "No" or u_input == "no" or u_input == "n" or u_input == "N":
+            us_loop = 0
+            clear()
+            print("Teacher Login")
+            while True:
+                print("Password:")
+                hidden_input()
+                if passwor == str(t_password):
+                    user = "t"
+                    print("\nCorrect")
+                    break
+                else:
+                    p_attempts += 1
+                    remaining_attempts = 5-int(p_attempts)
+                    clear()
+                    print("Incorrect Password\nYou have", remaining_attempts ,"attempts remaining.")
+
+                if remaining_attempts == 0:
+                    print("Password Attempt Limit Exceeded")
+                    exit()
+        
+        elif u_input == "Yes" or u_input == "yes" or u_input == "y" or u_input == "Y":
+            user = "p"
+            us_loop = 0
+        else:
+            print("Please enter Yes or No.")
+            time.sleep(0.7)
 
 def p_input():
 
@@ -116,5 +169,6 @@ else:
     f.write(str(x))
     f.close()
 
-
-p_input()
+user_selection()
+if user == "p":
+    p_input()
