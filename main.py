@@ -123,10 +123,10 @@ def p_input():
                 else:
                     clear()
                     print("\nPlease enter a number from 1-9.")
-                preferenced[preferences] = day
-                preferencet[preferences] = time
-                
-                preferences += 1
+            preferenced[preferences] = int(day)
+            preferencet[preferences] = int(time)
+            
+            preferences += 1
             
 
         p_num += 1
@@ -145,77 +145,81 @@ def booking_verify():
     global p1_line
     global p2_line
     
-    b_time = "17:00"
-    p1_line = ((int(preferenced[0]) * 10) + int(preferencet[0]))-7
-    p2_line = ((int(preferenced[1]) * 10) + int(preferencet[1]))-7
+    b_pref =  0
+    b_day = 0
+    b_time = 0
+    p1_line = ((preferenced[0] * 10) + preferencet[0])-7
+    p2_line = ((preferenced[1] * 10) + preferencet[1])-7
 
     f = open("bookings.txt", "rt")
 
-    book_test = linecache.getline("bookings.txt", p1_line)
+    
 
-    if book_test[0] != "P":
+    if linecache.getline("bookings.txt", p1_line)[3] != "P":
         f.seek(0)
         lines = f.readlines()
-        lines[(p1_line - 1)] = "P"+str(p_num-1)+"\n"
+        lines[(p1_line - 1)] = str(preferencet[0])+". Parent "+str(p_num-1)+"\n"
 
         f = open("bookings.txt", "wt")
         f.writelines(lines)
         f.close()
+        b_pref = "1"
+        b_day = preferenced[0]
+
+        if preferencet[0] == 1:
+            b_time = "17:00"
+        elif preferencet[0] == 2:
+            b_time = "17:20"
+        elif preferencet[0] == 3:
+            b_time = "17:40"
+        elif preferencet[0] == 4:
+            b_time = "18:00"
+        elif preferencet[0] == 5:
+            b_time = "18:20"
+        elif preferencet[0] == 6:
+            b_time = "18:40"
+        elif preferencet[0] == 7:
+            b_time = "19:00"
+        elif preferencet[0] == 8:
+            b_time = "19:20"
+        elif preferencet[0] == 9:
+            b_time = "19:40"
        
-        if preferencet[0] == "1":
-            b_time = "17:00"
-        elif preferencet[0] == "2":
-            b_time = "17:20"
-        elif preferencet[0] == "3":
-            b_time = "17:40"
-        elif preferencet[0] == "4":
-            b_time = "18:00"
-        elif preferencet[0] == "5":
-            b_time = "18:20"
-        elif preferencet[0] == "6":
-            b_time = "18:40"
-        elif preferencet[0] == "7":
-            b_time = "19:00"
-        elif preferencet[0] == "8":
-            b_time = "19:20"
-        elif preferencet[0] == "9":
-            b_time = "19:40"
-
-        print("Preference 1 Booked\nYour booking is on Day", preferenced[0], "at", b_time + ".")
-
-    elif f.readline(p2_line)[0] != "P":
+    elif linecache.getline("bookings.txt", p2_line)[3] != "P":
         f.seek(0)
         lines = f.readlines()
-        lines[(p2_line - 1)] = "P"+str(p_num-1)+"\n"
+        lines[(p2_line - 1)] = str(preferencet[1])+". P"+str(p_num-1)+"\n"
 
         f = open("bookings.txt", "wt")
         f.writelines(lines)
         f.close()
 
-        if preferencet[1] == "1":
+        b_pref = "2"
+        b_day = preferenced[1]
+
+        if preferencet[1] == 1:
             b_time = "17:00"
-        elif preferencet[1] == "2":
+        elif preferencet[1] == 2:
             b_time = "17:20"
-        elif preferencet[1] == "3":
+        elif preferencet[1] == 3:
             b_time = "17:40"
-        elif preferencet[1] == "4":
+        elif preferencet[1] == 4:
             b_time = "18:00"
-        elif preferencet[1] == "5":
+        elif preferencet[1] == 5:
             b_time = "18:20"
-        elif preferencet[1] == "6":
+        elif preferencet[1] == 6:
             b_time = "18:40"
-        elif preferencet[1] == "7":
+        elif preferencet[1] == 7:
             b_time = "19:00"
-        elif preferencet[1] == "8":
+        elif preferencet[1] == 8:
             b_time = "19:20"
-        elif preferencet[1] == "9":
+        elif preferencet[1] == 9:
             b_time = "19:40"
+
+    print("Preference " + b_pref + " Booked")
+    print("Your booking is on Day " + str(b_day) + " at " + str(b_time) + ".")
+    
         
-        
-        print("Preference 2 Booked\nYour booking is on Day", preferenced[1], "at", b_time + ".")
-
-
-
 if exists("bookings.txt") == True:
     f = open("bookings.txt", "rt")
     p_num = int(f.readline(2))
@@ -224,7 +228,7 @@ else:
     f = open("bookings.txt", "x")
     f = open("bookings.txt", "wt")
     f.write(str(p_num))
-    f.write("\n\nDay 1 Bookings\n1\n2\n3\n4\n5\n6\n7\n8\n9\nDay 2 Bookings\n1\n2\n3\n4\n5\n6\n7\n8\n9\nDay 3 Bookings\n1\n2\n3\n4\n5\n6\n7\n8\n9")
+    f.write("\n\nDay 1 Bookings\n1.  \n2.  \n3.  \n4.  \n5.  \n6.  \n7.  \n8.  \n9.  \nDay 2 Bookings\n1.  \n2.  \n3.  \n4.  \n5.  \n6.  \n7.  \n8.  \n9.  \nDay 3 Bookings\n1.  \n2.  \n3.  \n4.  \n5.  \n6.  \n7.  \n8.  \n9.  ")
     f.close()
 
 
