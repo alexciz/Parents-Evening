@@ -3,7 +3,6 @@ import msvcrt
 import time
 import linecache
 import os
-from tracemalloc import start
 
 
 p_num = 1
@@ -32,7 +31,7 @@ def user_selection():
     while True:
         clear()
         u_input = input("Are you a parent?\n")
-        if u_input == "No" or u_input == "no" or u_input == "n" or u_input == "N":
+        if u_input == "No" or u_input == "no" or u_input == "n" or u_input == "N" or u_input == "NO":
             clear()
             print("Teacher Login")
             while True:
@@ -51,7 +50,7 @@ def user_selection():
                     print("Password Attempt Limit Exceeded")
                     exit()
             break
-        elif u_input == "Yes" or u_input == "yes" or u_input == "y" or u_input == "Y":
+        elif u_input == "Yes" or u_input == "yes" or u_input == "y" or u_input == "Y" or u_input == "YES":
             user = "p"
             break
         else:
@@ -64,7 +63,6 @@ def p_input():
     global preferences
     global preferenced
     global preferencet
-    global limit_exceeded
     global p_name
 
     preferences = 0
@@ -73,8 +71,6 @@ def p_input():
 
     preferenced = ["1", "2"]
     preferencet = ["1", "2"]
-
-    limit_exceeded = 0
 
     
     if p_num <= 24:
@@ -88,6 +84,7 @@ def p_input():
             if preferences == 0:
                 print("\nPlease enter your first booking choice.\n")
             else:
+                clear()
                 print("Please enter your second booking choice.\n")
 
 
@@ -150,19 +147,21 @@ def p_input():
     else:
         clear()
         print("All parents have booked.")
-        limit_exceeded = 1
+        f = open("bookings.txt", "r")
+        f.close()
         exit()
 
 def booking_verify():
     global p1_line
     global p2_line
-    
-    next = False
+
     b_pref =  0
     b_day = 0
     b_time = 0
     p1_line = ((preferenced[0] * 10) + preferencet[0])-7
     p2_line = ((preferenced[1] * 10) + preferencet[1])-7
+    next_day = 0
+    booked = False
 
     f = open("bookings.txt", "rt")
 
@@ -249,25 +248,31 @@ def booking_verify():
             while True:
                 clear()
                 print("Please select an available slot from the following list for the selected day.\nSlots without a name are available.\n")
-                time.sleep(1.5)
                 print(*print_lines)
                 b_preft = input("Please select an available slot by entering its number.\nIf none of the slots suit you are none are available please enter 'next'.\n")
                 
-                bb_line = ((int(b_prefd)*10)+int(b_preft))-7
+                if b_preft.isnumeric() == True: 
+                    bb_line = ((int(b_prefd)*10)+int(b_preft))-7
+                    
 
                 f = open("bookings.txt", "rt")
                 
 
-                if str(b_preft) != "1" or b_preft != "2" or b_preft != "3" or b_preft != "4" or b_preft != "5" or b_preft != "6" or b_preft != "7" or b_preft != "8" or b_preft != "9" or b_preft != "next":
-                    print("Please enter a number from 1-9 or 'next only.\n")
-                    time.sleep(1.5)
-                    f.close()
-                elif b_preft == "next":
-                    next = True
+                if b_preft == "next":
+                    clear()
+                    next_day = 1
                     break
                     f.close()
+                elif b_preft.isnumeric() == False:
+                    print("\nPlease enter a number from 1-9 or 'next' only.")
+                    time.sleep(1.7)
+                    f.close()
+                elif int(b_preft) not in range(1,10):
+                    print("\nPlease enter a number from 1-9 or 'next' only.")
+                    time.sleep(1.7)
+                    f.close()
                 elif linecache.getline("bookings.txt", bb_line)[3] == " ":
-                    b_pref = 3
+                    b_pref = "3"
                     f.seek(0)
                     lines = f.readlines()
                     lines[(bb_line - 1)] = str(b_preft) + ". " + p_name + "\n"
@@ -296,14 +301,20 @@ def booking_verify():
                     elif b_preft == "9":
                         b_time = "19:40"
                     
+                    next_day = 0
+                    
                     break
+                else:
+                    clear()
+                    print("The seleced slot is not available.")
+                    time.sleep(1)
             
-            if next != False:
+            if next_day == 0:
                 break
 
 
     print("Preference " + b_pref + " Booked")
-    print("Your booking is on Day " + str(b_day) + " at " + str(b_time) + ".")
+    print("Your booking is on Day " + str(b_day) + " at " + b_time + ".")
     
         
 if exists("bookings.txt") == True:
@@ -326,5 +337,4 @@ user_selection()
 
 if user == "p":
     p_input()
-    if limit_exceeded == 0:
-        booking_verify()
+    booking_verify()
