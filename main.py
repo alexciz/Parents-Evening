@@ -1,5 +1,4 @@
 from genericpath import exists
-from importlib import reload
 import msvcrt
 import time
 import os
